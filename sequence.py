@@ -1,60 +1,60 @@
-# test = [1,2,8,8,5]
-# # print(test)
+test = [1,2,8,8,5]
+print(test)
 
-# # print(test[0])
+print(test[0])
 
 
-# # last = len(test)
+last = len(test)
 
-# # print(test[last-1])
+print(test[last-1])
 
-# # #slicing
-# # print(test[2::])
-# # print(tup)
+#slicing
+print(test[2::])
+print(tup)
 
-# # print(test[4:2:-1])
+print(test[4:2:-1])
 
-# #built in method in list
+# built in method in list
 
-# #append()
+# append()
 
-# print(test.append(6))
-# print(test)
-# test.append(7)
-# test.append(7)
-# print(test)
+print(test.append(6))
+print(test)
+test.append(7)
+test.append(7)
+print(test)
 
-# #insert() - adds value at specific index
+#insert() - adds value at specific index
 
-# test.insert(0,0)
-# print(test)
+test.insert(0,0)
+print(test)
 
-# #remove() -removes the first occurance of value in the list.  
+#remove() -removes the first occurance of value in the list.  
 
+test.remove(8)
 # test.remove(8)
-# # test.remove(8)
-# print(test)
+print(test)
 
-# #pop() -removes the last element from the list.
-# emp = [1,2,3,4,5,7]
-# # print(emp.pop())  #last value return garxa.
+#pop() -removes the last element from the list.
+emp = [1,2,3,4,5,7]
+# print(emp.pop())  #last value return garxa.
 
-# print(id(emp))
+print(id(emp))
 
-# emp.pop()
-# print(id(emp))
+emp.pop()
+print(id(emp))
 
-# #index() - return first occurance of value.
-# print(test.index(7))
+#index() - return first occurance of value.
+print(test.index(7))
 
-# #count() - it counts the occurance of the value
+#count() - it counts the occurance of the value
 
-# print(test.count(7))
+print(test.count(7))
 
-# #extend() -combines two list and returns new list.
+#extend() -combines two list and returns new list.
 
-# test.extend(emp)
-# print(test)
+test.extend(emp)
+print(test)
 
 
 # create a list of 10 elements and print the last 5 elements using slicing
