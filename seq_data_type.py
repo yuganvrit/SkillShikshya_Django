@@ -77,3 +77,7 @@ odd_list = [1, 2, 3, 4, 5]
 mid_item = odd_list[(len(odd_list)-1)// 2]
 print(mid_item)
 
+arr = [20, 10, 5, 80, 40, 60, 100]
+print(arr)
+arr.sort()
+print(arr)
