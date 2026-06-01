@@ -48,11 +48,12 @@
 
 # mutable data type in tuple 
 mutable_tuple = (1,2,[3,4])
-print(type(mutable_tuple))
-
-mutable_tuple[2].append(5)
 print(mutable_tuple)
 
-mutable_tuple = (1,2,'Santos', 5)
+mutable_tuple[2].append(5) # (1,2,[3,4,5])   tuple with new list.
+print(mutable_tuple) # (1,2,[3,4,5])
 
-print(mutable_tuple[2]+"h")
+mutable_tuple = (1,2,'Santos', 5)
+mutable_tuple = (1,2,mutable_tuple[2]+"h", 5, 'Santos') 
+
+print(mutable_tuple)
