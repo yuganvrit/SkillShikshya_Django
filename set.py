@@ -46,3 +46,5 @@ set1 = set(list1)
 set2 = set(list2)
 diff = set1 - set2
 print(list(diff))
+
+#What is RAG, diff between vectorless rag and traditional rag. what is vector embedding
