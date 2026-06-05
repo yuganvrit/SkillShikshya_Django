@@ -10,3 +10,5 @@ temp = input("Enter the temperature in fahrenheit: ")
 temp = float(temp)
 celsius = (temp - 32) * 5/9
 print(f"The temperature in celsius is: {celsius}")
+
+

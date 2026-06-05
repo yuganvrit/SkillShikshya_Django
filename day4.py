@@ -28,3 +28,4 @@
 #     print(i)
 #     i += 1
 
+print(ord('2'))
