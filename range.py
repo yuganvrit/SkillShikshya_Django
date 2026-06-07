@@ -17,6 +17,8 @@
 # print(list(four_table))
 # print(list(four_table[::2]))
 
-eight_table = range(8,81,4)
-print(list(eight_table))
-print(list(eight_table[::2]))
+# eight_table = range(8,81,4)
+# print(list(eight_table))
+# print(list(eight_table[::2]))
+
+

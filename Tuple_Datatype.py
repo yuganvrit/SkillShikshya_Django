@@ -73,5 +73,14 @@
 # mutable_tuple = (1,2,"santos",5)
 # print(mutable_tuple[2].append("h"))
 
-three_level_tuple = (1,2,(3,4,(5,6)),7)
-print(three_level_tuple[2][2][1])
+# three_level_tuple = (1,2,(3,4,(5,6)),7)
+# print(three_level_tuple[2][2][1])
+
+# m_tuple = (1,2, "Santos", 5)
+
+# m_list = list(m_tuple)
+# name = m_list[2]
+# name = name + "h"
+# m_list[2] = name
+# m_tuple = tuple(m_list)
+# print(m_tuple)
