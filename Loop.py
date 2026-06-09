@@ -137,18 +137,39 @@
 
 
 # Countdown using while loop
-i = 10
+# i = 10
 
-while i > 0:
-    print(i)
-    i -= 1
+# while i > 0:
+#     print(i)
+#     i -= 1
 
-print("Blast off!")
+# print("Blast off!")
 
-# Count up from 1 to 10 and print only odd numbers
-num = 1
+# # Count up from 1 to 10 and print only odd numbers
+# num = 1
 
-while num <= 10:
-    if num % 2 != 0:
-        print(num)
-    num += 1
+# while num <= 10:
+#     if num % 2 != 0:
+#         print(num)
+#     num += 1
+
+
+
+number = [1,2,9,5,6]
+largest = number[0]
+second_largest = number[1]
+for num in number:
+    if num > largest:
+        largest = num
+
+    elif second_largest < largest and num != largest:
+        second_largest = num
+
+print(f"largest: {largest}")
+print(f"second_largest: {num}")
+    
+
+
+
+
+
