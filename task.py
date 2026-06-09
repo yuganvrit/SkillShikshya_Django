@@ -40,7 +40,7 @@ is_prime = True
 if number <= 1:
     is_prime = False
 else:
-    for i in range(2, number):
+    for i in range(2, 17):
         if number % i == 0:
             is_prime = False
             break
@@ -49,3 +49,9 @@ if is_prime:
     print("It is a Prime Number")
 else:
     print(" It is not a Prime Number")
+
+## 3 
+# number = [1,2,3,2,1,2,1,4,5]
+# dub_num = []
+# for num in number:
+#     if 
