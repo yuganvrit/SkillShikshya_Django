@@ -1,5 +1,5 @@
 #find the second largst number in list
-# lst = [1,2,9,3,4,5,8]
+lst = [1,2,9,3,4,5,8]
 
 # largest = lst[0]
 # second_largest = lst[1]
@@ -9,9 +9,9 @@
 #         largest = i
         
 
-# #2nd way to do.
-# lst.sort()
-# print(lst[-2])
+#2nd way to do.
+lst.sort()
+print(lst[-2])
 
 # maximum = max(lst)
 # lst.remove(maximum)
@@ -54,6 +54,7 @@ if len(first) == len(second):
         #     if first.count(i) == second.count(j):
                 anagram += 1
         #         break
+            
             
 
 if (anagram == len(first)):
