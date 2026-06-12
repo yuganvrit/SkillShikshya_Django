@@ -18,10 +18,10 @@ from functools import reduce
 # maximum = reduce(lambda x, y: x if x>y else y, number)
 # print(maximum)
 
-# lst = ['s','a','n','t','o','s','h']
+lst = ['s','a','n','t','o','s','h']
 
-# string = reduce(lambda x, y: x+y, lst)
-# print(string)
+string = reduce(lambda x, y: x+y, lst)
+print(string)
 
 words = ['e','l','e','p','h','a','n','t']
 vowels = list(filter(lambda x:x in 'aeiou', words))

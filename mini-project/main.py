@@ -32,7 +32,6 @@ def delete_contact(name):
     else:
         print('The contact is not present in the contact book.')
 
-
 while True:
     print("\n\n1. Add Contact \n2. Find Contact \n3.Display all contact \n4.Delete Contact \n5.Exit")
     choice = input("Enter the choice you want: ")
