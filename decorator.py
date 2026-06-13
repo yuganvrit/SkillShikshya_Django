@@ -27,3 +27,4 @@ def check_role(role):
     print('Access Granted as ', role)
 
 check_role('hero')
+check_role('user')
