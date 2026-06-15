@@ -76,3 +76,23 @@ def flatten_lst(x,y):
 
 output = reduce(flatten_lst, nested_lst)
 print(output)
+
+
+lst = [1,2,3,4,5]
+
+output = list(map(lambda x: 'even' if x%2==0 else 'odd', lst))
+print(output)
+
+even = list(filter(lambda x:x%2==0, lst))
+print(even)
+
+lst = ['santosh ', 'is ', 'a ', 'good ','boy']
+
+output = str(reduce(lambda x,y:x+y, lst))
+print(output)
+
+students = [
+    {"name": "A", "marks": 80},
+    {"name": "B", "marks": 45},
+    {"name": "C", "marks": 70}
+]
