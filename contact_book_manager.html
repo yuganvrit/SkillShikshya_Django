@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Contact Book Manager — Capstone Mini-Project</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;background:linear-gradient(135deg,#0d5c3a,#0f7a4d,#0d5c3a);font-family:'Segoe UI',sans-serif;display:flex;justify-content:center;padding:2rem 1rem}
+  .wrap{width:100%;max-width:720px}
+  h1{color:#fff;font-size:2rem;font-weight:900;text-align:center;letter-spacing:-0.5px;margin-bottom:.5rem}
+  .badge-title{display:inline-block;background:#f5e400;color:#0d5c3a;font-weight:800;font-size:1.05rem;padding:.35rem 1.5rem;border-radius:6px;margin-bottom:1.2rem}
+  .center{text-align:center}
+  .dots{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+  .dot{height:10px;border-radius:99px;cursor:pointer;border:none;transition:all .3s;background:rgba(255,255,255,.2)}
+  .dot.past{background:rgba(255,255,255,.6);width:10px}
+  .dot.active{background:#f5e400;width:32px}
+  .dot.future{width:10px}
+  .step-meta{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+  .step-badge{font-size:.7rem;font-weight:700;color:#fff;padding:.25rem .75rem;border-radius:99px}
+  .badge-add{background:#10b981}.badge-find{background:#3b82f6}.badge-display{background:#8b5cf6}.badge-delete{background:#ef4444}.badge-notfound{background:#f97316}.badge-idle{background:#6b7280}
+  .step-name{color:rgba(255,255,255,.8);font-size:.85rem}
+  .codebox{background:#111827;border-radius:12px;padding:.75rem 1.2rem;font-family:monospace;font-size:.85rem;color:#4ade80;margin-bottom:.6rem;overflow-x:auto}
+  .codebox .prompt{color:#6b7280;user-select:none;margin-right:.5rem}
+  .step-desc{color:rgba(255,255,255,.85);font-size:.85rem;line-height:1.5;margin-bottom:1rem}
+  .vis{background:rgba(255,255,255,.1);backdrop-filter:blur(4px);border-radius:16px;padding:1.2rem;min-height:200px;margin-bottom:1rem}
+  .vis-header{display:flex;align-items:center;gap:.4rem;margin-bottom:.8rem;font-family:monospace;font-size:.75rem}
+  .vis-header .kw{color:rgba(255,255,255,.6)}.vis-header .op{color:#fde047}.vis-header .count{color:rgba(255,255,255,.35);margin-left:auto}
+  .vis-footer{font-family:monospace;font-size:.75rem;color:rgba(255,255,255,.6);text-align:right;margin-top:.4rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.75rem}
+  .card{background:#fff;border:2px solid #d1d5db;border-radius:12px;padding:.75rem 1rem;font-family:monospace;font-size:.8rem;transition:background .3s,border-color .3s,opacity .3s,transform .3s;animation:slideIn .4s ease}
+  .card.highlight{background:#fef08a;border-color:#eab308}
+  .card.scanning{background:#d1fae5;border-color:#10b981}
+  .card.deleting{opacity:.3;transform:scale(.93)}
+  @keyframes slideIn{from{opacity:0;transform:translateX(-40px) scale(.9)}to{opacity:1;transform:none}}
+  .card-idx{color:#9ca3af;font-size:.7rem}
+  .card-brace{color:#7c3aed;font-weight:700}
+  .card-key{color:#3b82f6}
+  .card-val{color:#15803d}
+  .card-comma{color:#9ca3af}
+  .card-pl{padding-left:1rem}
+  .empty{display:flex;align-items:center;justify-content:center;height:100px;font-family:monospace;font-size:.85rem;color:rgba(255,255,255,.35)}
+  .result-box{border-radius:12px;padding:.65rem 1.2rem;font-family:monospace;font-size:.85rem;margin-bottom:1rem;animation:fadeIn .3s ease}
+  .result-found{background:#fefce8;border:2px solid #eab308;color:#78350f}
+  .result-notfound{background:#fff7ed;border:2px solid #f97316;color:#7c2d12}
+  .result-label{color:#6b7280;font-size:.7rem;margin-right:.4rem}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .controls{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:1rem}
+  .btn{padding:.55rem 1.2rem;border-radius:10px;border:none;font-weight:600;font-size:.85rem;cursor:pointer;transition:all .2s}
+  .btn-nav{background:rgba(255,255,255,.2);color:#fff}.btn-nav:hover{background:rgba(255,255,255,.3)}.btn-nav:disabled{opacity:.3;cursor:not-allowed}
+  .btn-play{background:#f5e400;color:#0d5c3a;padding:.55rem 1.5rem;font-weight:700}.btn-play:hover{background:#fde047}
+  .btn-pause{background:#ef4444;color:#fff}.btn-pause:hover{background:#dc2626}
+  .btn-dl{display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;padding:.6rem 1.4rem;border-radius:10px;font-weight:600;font-size:.85rem;cursor:pointer;margin:0 auto .75rem;transition:background .2s}.btn-dl:hover{background:rgba(255,255,255,.25)}
+  .concepts{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;padding-bottom:1rem}
+  .concept{background:rgba(245,228,0,.15);border:1px solid rgba(245,228,0,.4);color:#f5e400;font-size:.7rem;font-weight:600;padding:.2rem .75rem;border-radius:99px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>CAPSTONE MINI-PROJECT</h1>
+  <div class="center"><span class="badge-title">CONTACT BOOK MANAGER</span></div>
+  <div class="dots" id="dots"></div>
+  <div class="step-meta"><span class="step-badge" id="stepBadge"></span><span class="step-name" id="stepName"></span></div>
+  <div class="codebox"><span class="prompt">&gt;&gt;&gt;</span><span id="codeText"></span></div>
+  <p class="step-desc" id="stepDesc"></p>
+  <div class="vis">
+    <div class="vis-header"><span class="kw">contacts</span><span class="op">&nbsp;=&nbsp;</span><span class="kw">[</span><span class="count" id="countLabel">0 items</span></div>
+    <div class="cards" id="cards"></div>
+    <div class="vis-footer">]</div>
+  </div>
+  <div id="resultBox" style="display:none"></div>
+  <div class="controls">
+    <button class="btn btn-nav" id="btnPrev" onclick="prev()">← Prev</button>
+    <button class="btn btn-play" id="btnPlay" onclick="togglePlay()">▶ Auto-play</button>
+    <button class="btn btn-nav" id="btnNext" onclick="next()">Next →</button>
+  </div>
+  <div class="center">
+    <button class="btn btn-dl" onclick="downloadPy()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Python Code
+    </button>
+  </div>
+  <div class="concepts" id="concepts"></div>
+</div>
+<script>
+const STEPS=[
+  {type:"idle",label:"Start",code:"contacts = []",desc:"We begin with an empty list. Each contact will be stored as a dictionary inside this list."},
+  {type:"add",label:"add_contact()",code:'add_contact("Alice", "555-1234", "alice@mail.com")',contact:{name:"Alice",phone:"555-1234",email:"alice@mail.com"},desc:"add_contact() creates a dictionary and appends it to the contacts list."},
+  {type:"add",label:"add_contact()",code:'add_contact("Bob", "555-5678", "bob@mail.com")',contact:{name:"Bob",phone:"555-5678",email:"bob@mail.com"},desc:"Another contact is appended. The list now holds two dictionaries."},
+  {type:"add",label:"add_contact()",code:'add_contact("Carol", "555-9999", "carol@mail.com")',contact:{name:"Carol",phone:"555-9999",email:"carol@mail.com"},desc:"A third contact is added. The list grows with each append."},
+  {type:"display",label:"display_all_contacts()",code:"display_all_contacts()",desc:"display_all_contacts() loops through every dictionary in the list and prints each one nicely."},
+  {type:"find",label:"find_contact()",code:'find_contact("Bob")',target:"Bob",result:"{ 'name': 'Bob', 'phone': '555-5678', 'email': 'bob@mail.com' }",desc:"find_contact() iterates the list checking each contact's name until it finds a match."},
+  {type:"notfound",label:"find_contact()",code:'find_contact("Zara")',target:"Zara",result:"'Not found'",desc:"If no contact matches, find_contact() returns 'Not found'."},
+  {type:"delete",label:"delete_contact()",code:'delete_contact("Alice")',target:"Alice",desc:"delete_contact() finds the matching dictionary and removes it from the list."},
+];
+const BADGE={add:"badge-add",find:"badge-find",display:"badge-display",delete:"badge-delete",notfound:"badge-notfound",idle:"badge-idle"};
+let stepIdx=0,contacts=[],idCtr=0,autoPlay=false,timer=null,highlight=null,scanning=null,deleting=null;
+
+function buildContacts(upTo){
+  let c=[],n=0;
+  for(let i=0;i<=upTo;i++){
+    const s=STEPS[i];
+    if(s.type==="add"&&s.contact){n++;c.push({...s.contact,id:n});}
+    else if(s.type==="delete"&&s.target){c=c.filter(x=>x.name!==s.target);}
+  }
+  return{contacts:c,idCtr:n};
+}
+
+function renderCards(){
+  const el=document.getElementById("cards");
+  const count=document.getElementById("countLabel");
+  count.textContent=contacts.length+" item"+(contacts.length!==1?"s":"");
+  if(!contacts.length){el.innerHTML='<div class="empty">[ ]  — empty list</div>';return;}
+  el.innerHTML=contacts.map((c,i)=>{
+    let cls="card";
+    if(highlight===c.name)cls+=" highlight";
+    else if(scanning)cls+=" scanning";
+    if(deleting===c.name)cls+=" deleting";
+    return`<div class="${cls}">
+      <div><span class="card-idx">#${i}</span> <span class="card-brace">{</span></div>
+      <div class="card-pl"><span class="card-key">'name'</span>: <span class="card-val">'${c.name}'</span><span class="card-comma">,</span></div>
+      <div class="card-pl"><span class="card-key">'phone'</span>: <span class="card-val">'${c.phone}'</span><span class="card-comma">,</span></div>
+      <div class="card-pl"><span class="card-key">'email'</span>: <span class="card-val">'${c.email}'</span></div>
+      <div><span class="card-brace">}</span></div>
+    </div>`;
+  }).join("");
+}
+
+function showResult(text,found){
+  const el=document.getElementById("resultBox");
+  el.className="result-box "+(found?"result-found":"result-notfound");
+  el.innerHTML='<span class="result-label">returns →</span>'+text;
+  el.style.display="block";
+}
+function hideResult(){document.getElementById("resultBox").style.display="none";}
+
+function applyStep(s){
+  highlight=null;scanning=null;deleting=null;hideResult();
+  renderCards();
+  if(s.type==="add"&&s.contact){
+    highlight=s.contact.name;renderCards();
+    setTimeout(()=>{highlight=null;renderCards();},1400);
+  } else if(s.type==="find"&&s.target){
+    scanning=s.target;renderCards();
+    setTimeout(()=>{scanning=null;highlight=s.target;renderCards();showResult(s.result,true);},900);
+    setTimeout(()=>{highlight=null;renderCards();},2000);
+  } else if(s.type==="notfound"&&s.target){
+    scanning=s.target;renderCards();
+    setTimeout(()=>{scanning=null;renderCards();showResult(s.result,false);},900);
+  } else if(s.type==="display"){
+    scanning="__all__";renderCards();
+    setTimeout(()=>{scanning=null;renderCards();},2000);
+  } else if(s.type==="delete"&&s.target){
+    deleting=s.target;renderCards();
+    setTimeout(()=>{deleting=null;contacts=contacts.filter(c=>c.name!==s.target);renderCards();},800);
+  }
+}
+
+function goTo(idx){
+  stepIdx=idx;
+  const built=buildContacts(idx);
+  contacts=built.contacts;idCtr=built.idCtr;
+  highlight=null;scanning=null;deleting=null;hideResult();
+  const s=STEPS[idx];
+  document.getElementById("codeText").textContent=s.code;
+  document.getElementById("stepDesc").textContent=s.desc;
+  const b=document.getElementById("stepBadge");
+  b.className="step-badge "+BADGE[s.type];
+  b.textContent="Step "+idx+" / "+(STEPS.length-1);
+  document.getElementById("stepName").textContent=s.label;
+  document.getElementById("btnPrev").disabled=idx===0;
+  document.getElementById("btnNext").disabled=idx===STEPS.length-1;
+  renderDots();
+  applyStep(s);
+}
+
+function renderDots(){
+  document.getElementById("dots").innerHTML=STEPS.map((_,i)=>
+    `<button class="dot ${i<stepIdx?"past":i===stepIdx?"active":"future"}" onclick="goTo(${i})"></button>`
+  ).join("");
+}
+
+function next(){if(stepIdx<STEPS.length-1)goTo(stepIdx+1);}
+function prev(){if(stepIdx>0)goTo(stepIdx-1);}
+
+function togglePlay(){
+  if(autoPlay){autoPlay=false;clearTimeout(timer);document.getElementById("btnPlay").className="btn btn-play";document.getElementById("btnPlay").textContent="▶ Auto-play";return;}
+  if(stepIdx===STEPS.length-1)goTo(0);
+  autoPlay=true;
+  document.getElementById("btnPlay").className="btn btn-pause";
+  document.getElementById("btnPlay").textContent="⏸ Pause";
+  tick();
+}
+function tick(){
+  if(!autoPlay)return;
+  if(stepIdx>=STEPS.length-1){autoPlay=false;document.getElementById("btnPlay").className="btn btn-play";document.getElementById("btnPlay").textContent="↺ Replay";return;}
+  timer=setTimeout(()=>{next();tick();},2200);
+}
+
+function downloadPy(){
+  const code=`# Contact Book Manager — Capstone Mini-Project
+
+contacts = []
+
+def add_contact(name, phone, email):
+    contact = {'name': name, 'phone': phone, 'email': email}
+    contacts.append(contact)
+    print(f"Contact '{name}' added.")
+
+def find_contact(name):
+    for contact in contacts:
+        if contact['name'] == name:
+            return contact
+    return 'Not found'
+
+def display_all_contacts():
+    if not contacts:
+        print("No contacts yet.")
+        return
+    print("\n--- Contact Book ---")
+    for i, contact in enumerate(contacts):
+        print(f"{i + 1}. Name: {contact['name']}, Phone: {contact['phone']}, Email: {contact['email']}")
+    print("--------------------\n")
+
+def delete_contact(name):
+    for i, contact in enumerate(contacts):
+        if contact['name'] == name:
+            contacts.pop(i)
+            print(f"Contact '{name}' deleted.")
+            return
+    print(f"'{name}' not found.")
+
+# --- Demo ---
+add_contact("Alice", "555-1234", "alice@mail.com")
+add_contact("Bob", "555-5678", "bob@mail.com")
+add_contact("Carol", "555-9999", "carol@mail.com")
+display_all_contacts()
+print(find_contact("Bob"))
+print(find_contact("Zara"))
+delete_contact("Alice")
+display_all_contacts()
+`;
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([code],{type:"text/plain"}));
+  a.download="contact_book_manager.py";a.click();
+}
+
+const concepts=["functions","lists","dictionaries","loops","if/else","string formatting"];
+document.getElementById("concepts").innerHTML=concepts.map(c=>`<span class="concept">${c}</span>`).join("");
+goTo(0);
+</script>
+</body>
+</html>
