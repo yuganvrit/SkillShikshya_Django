@@ -115,6 +115,6 @@
 # mod = num1%num2
 # print("Modulus: ",mod)
 
-user1 = input("Enter the word: ")
-user2 = input("Enter the word: ")
-print(user1 + " ." + user2)
+# user1 = input("Enter the word: ")
+# user2 = input("Enter the word: ")
+# print(user1 + " ." + user2)

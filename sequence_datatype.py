@@ -17,7 +17,7 @@
 # list.append(6)
 # list.append(7)
 # list.append(8)
-# print(list)\
+# print(list)
 
 ##insert method to i sert value at specific index
 # list.insert(1,50)
