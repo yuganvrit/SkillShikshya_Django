@@ -8,4 +8,8 @@ class Dog:
         return 'woff woff'
     
 
+    def eat(self):
+        return 'eating'
+    
+
 
