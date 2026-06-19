@@ -1,6 +1,6 @@
 # #check 0.1 + 0.2 == 0.3 (True or False)
 
-print(0.1 + 0.2 == 0.3)
+print(0.1 + 0.2 != 0.3)
 # # Gives false becz of the way floating point numbers are represented in binary, it cannot represent 0.1 and 0.2 exactly, so it gives a result that is very close to 0.3 but not exactly 0.3
 print(0.1 + 0.2)
 
