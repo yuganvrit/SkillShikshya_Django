@@ -9,13 +9,13 @@ class Vehicle:
     
 class Car(Vehicle):
     def __init__(self, name, id, color, wheels):
-        super().__init__(name, id, color, wheels)
+        super().__init__(name, id, color)
         self.wheels = wheels
 
     def start(self):
         return f"{self.name} is speeding. It has {self.wheels} wheels"
     
-ford = Car("ford", 10, "white")
+ford = Car("ford", 10, "white", 4)
 print(ford.start_engine())
 print(ford.start())
     
