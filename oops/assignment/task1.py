@@ -24,7 +24,7 @@ class Car(Vehicle):
         return f'{self.brand} has {self.color} color and {self.doors} doors'
     
     def get_seats(self):
-        return f"hello! I'm {self.brand}. I have {self.seats} seats"
+        return f"I'm {self.brand}. I have {self.seats} seats"
 
     
 
