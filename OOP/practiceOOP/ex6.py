@@ -3,7 +3,8 @@ class Animal:
         return "Animal makes sound"
 
 class Dog(Animal):
-    def sound(self):
+    def sound(self): #if you want to use parents method + child use super
+        super().sound()
         return "Dog barks"
 
 
