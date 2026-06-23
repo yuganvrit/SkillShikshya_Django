@@ -79,7 +79,7 @@ student_data = [
 ]
 
 
-teachers = [
+teachers_data = [
     {
         "id": 101,
         "name": "Mr. Sharma",
@@ -101,7 +101,7 @@ teachers = [
 ]
 
 
-class studentMixin:
+class CreateUpdateDeleteMixin:
     def add(self, data, info):
         return data.append(info)
     
@@ -120,9 +120,7 @@ class studentMixin:
         return f"{id} not found!"
 
 
-
-
-class Student(studentMixin):
+class Student(CreateUpdateDeleteMixin):
     def __init__(self, data):
         self.data = data
     
@@ -153,3 +151,34 @@ print(student_engine.data[3])
 
 student_engine.delete_student(4)
 print(student_engine.data)
+
+
+
+class Teacher(CreateUpdateDeleteMixin):
+    def __init__(self, data):
+        self.data = data
+
+    def add_teacher(self, info):
+        return self.add(self.data, info) 
+    
+    def update_teacher(self, updated_data, id):
+        return self.update(self.data, updated_data, id)
+    
+    def delete_teacher(self, id):
+        return self.delete(self.data, id)
+    
+teachers_engine = Teacher(teachers_data)
+print(teachers_engine.data)
+
+teachers_engine.add_teacher(
+    {
+        "id": 104,
+        "name": "Dr. Maharjan",
+        "subject": "Machine Learning",
+        "experience_years": 10
+    }
+)
+print(teachers_engine.data)
+
+teachers_engine.delete_teacher(104)
+print(teachers_engine.data)
